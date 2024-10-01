@@ -1,0 +1,62 @@
+import 'dart:math';
+import 'package:flutter/material.dart';
+
+   void main() {
+     runApp(DiceRollerApp());
+   }
+
+   class DiceRollerApp extends StatelessWidget {
+     @override
+     Widget build(BuildContext context) {
+       return MaterialApp(
+         title: 'Dice',
+         home: DiceRollerHome(),
+       );
+     }
+   }
+
+   class DiceRollerHome extends StatefulWidget {
+     @override
+     _DiceRollerHomeState createState() => _DiceRollerHomeState();
+   }
+
+   class _DiceRollerHomeState extends State<DiceRollerHome> {
+     int leftDie = 1; // Image of the left cube
+     int rightDie = 1; // Image of the right cube
+
+     void rollDice() {
+       setState(() {
+         leftDie = Random().nextInt(6) + 1; // Random number from 1 to 6
+         rightDie = Random().nextInt(6) + 1; // Random number from 1 to 6
+       });
+     }
+
+     @override
+     Widget build(BuildContext context) {
+       return Scaffold(
+         appBar: AppBar(
+           title: Text('Dice'),
+         ),
+         body: Center(
+           child: Column(
+             mainAxisAlignment: MainAxisAlignment.center,
+             children: <Widget>[
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.center,
+                 children: <Widget>[
+                   Image.asset('assets/dice$leftDie.png', width: 100, height: 100),
+                   SizedBox(width: 20),
+                   Image.asset('assets/dice$rightDie.png', width: 100, height: 100),
+                 ],
+               ),
+               SizedBox(height: 20),
+               ElevatedButton(
+                 onPressed: rollDice,
+                 child: Text('Roll Dice'),
+               ),
+             ],
+           ),
+         ),
+       );
+     }
+   }
